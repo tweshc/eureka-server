@@ -12,3 +12,12 @@ public class EurekaHelloApplication {
 		SpringApplication.run(EurekaHelloApplication.class, args);
 	}
 }
+
+@RestController
+public class HomeController {
+
+    @RequestMapping(value = "/", method = RequestMethod.GET)
+    public String ipaddress() throws Exception {
+        return "Hello";
+    }
+}
