@@ -33,7 +33,7 @@ class MyController{
     @RequestMapping(value="/getInstanceId", method= RequestMethod.GET)
     public String getInstanceId() {
     	
-    	String url = "http://localhost:8888/instanceId";
+    	String url = "http://eureka-client:8888/instanceId";
     	
     	ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<String>(){} );
     	System.out.println(response.getBody().toString());
