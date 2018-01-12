@@ -6,6 +6,7 @@ import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -30,10 +31,10 @@ class MyController{
         return "Hello";
     }
     
-    @RequestMapping(value="/getInstanceId", method= RequestMethod.GET)
-    public String getInstanceId() {
+    @RequestMapping(value="/getInstanceId/{host}/{port}", method= RequestMethod.GET)
+    public String getInstanceId(@PathVariable String host, @PathVariable String port) {
     	
-    	String url = "http://172.17.0.6:8080/instanceId";
+    	String url = "http://" + host + ":" + port + "/instanceId";
     	
     	ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<String>(){} );
     	System.out.println(response.getBody().toString());
