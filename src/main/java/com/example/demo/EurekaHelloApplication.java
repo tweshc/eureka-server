@@ -1,5 +1,8 @@
 package com.example.demo;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer;
@@ -32,13 +35,16 @@ class MyController{
     }
     
     @RequestMapping(value="/getInstanceId/{host}/{port}", method= RequestMethod.GET)
-    public String getInstanceId(@PathVariable String host, @PathVariable String port) {
+    public List<String> getInstanceId(@PathVariable String host, @PathVariable String port) {
     	
+    	List<String> instanceIds = new ArrayList<String>();
     	String url = "http://" + host + ":" + port + "/instanceId";
     	
+    	for(int i=0;i<100;i++){
     	ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<String>(){} );
-    	System.out.println(response.getBody().toString());
-    	return response.getBody().toString();
+    	instanceIds.add(response.getBody().toString());
+    	}
+    	return instanceIds;
     }
     
 }
