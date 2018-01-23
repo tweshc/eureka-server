@@ -35,16 +35,13 @@ class MyController{
     }
     
     @RequestMapping(value="/getInstanceId/{host}/{port}", method= RequestMethod.GET)
-    public List<String> getInstanceId(@PathVariable String host, @PathVariable String port) {
+    public String getInstanceId(@PathVariable String host, @PathVariable String port) {
     	
-    	List<String> instanceIds = new ArrayList<String>();
     	String url = "http://" + host + ":" + port + "/instanceId";
     	
-    	for(int i=0;i<100;i++){
     	ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<String>(){} );
-    	instanceIds.add(response.getBody().toString());
-    	}
-    	return instanceIds;
+
+    	return response.getBody().toString();
     }
     
 }
