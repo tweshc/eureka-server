@@ -37,11 +37,14 @@ class MyController{
     @RequestMapping(value="/getInstanceId/{host}/{port}", method= RequestMethod.GET)
     public String getInstanceId(@PathVariable String host, @PathVariable String port) {
     	
+    	List<String> results = new ArrayList<String>();
     	String url = "http://" + host + ":" + port + "/instanceId";
     	
-    	ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<String>(){} );
-
-    	return response.getBody().toString();
+    	for(int i=0;i<100;i++) {
+    		ResponseEntity<String> response = restTemplate.exchange(url, HttpMethod.GET, null, new ParameterizedTypeReference<String>(){} );
+    		results.add(response.getBody().toString());
+    	}
+    	return results;
     }
     
 }
