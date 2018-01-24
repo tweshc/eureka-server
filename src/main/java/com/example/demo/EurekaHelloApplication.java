@@ -35,7 +35,7 @@ class MyController{
     }
     
     @RequestMapping(value="/getInstanceId/{host}/{port}", method= RequestMethod.GET)
-    public String getInstanceId(@PathVariable String host, @PathVariable String port) {
+    public List<String> getInstanceId(@PathVariable String host, @PathVariable String port) {
     	
     	List<String> results = new ArrayList<String>();
     	String url = "http://" + host + ":" + port + "/instanceId";
